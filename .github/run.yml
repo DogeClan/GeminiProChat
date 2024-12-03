@@ -1,0 +1,23 @@
+name: Configure Environment
+
+on: [push]
+
+jobs:
+  setup_env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create .env file
+        run: |
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+          echo "API_BASE_URL=" >> .env
+          echo "HEAD_SCRIPTS=" >> .env
+          echo "PUBLIC_SECRET_KEY=" >> .env
+          echo "SITE_PASSWORD=" >> .env
+          echo "PUBLIC_MAX_HISTORY_MESSAGES=" >> .env
+
+      # Add additional steps as necessary
+      - name: Display .env contents (for debugging)
+        run: cat .env
